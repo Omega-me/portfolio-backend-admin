@@ -1,14 +1,14 @@
-import { AuthProvider } from "@pankod/refine-core";
+import { AuthProvider } from '@pankod/refine-core';
 
-export const TOKEN_KEY = "refine-auth";
+export const TOKEN_KEY = 'refine-auth';
 
 export const authProvider: AuthProvider = {
   login: async ({ username, password }) => {
-    if (username === "admin" && password === "admin") {
+    if (username === process.env.REACT_APP_USERNAME && password === process.env.REACT_APP_PASSWORD) {
       localStorage.setItem(TOKEN_KEY, username);
       return Promise.resolve();
     }
-    return Promise.reject(new Error("username: admin, password: admin"));
+    return Promise.reject(new Error('Invalid Username or password'));
   },
   logout: () => {
     localStorage.removeItem(TOKEN_KEY);
